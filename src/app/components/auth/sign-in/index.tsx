@@ -1,5 +1,4 @@
 "use client";
-import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
@@ -50,22 +49,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   const isValid = validateForm();
   if (!isValid) return;
-
-  setLoading(true);
-  const res = await signIn("credentials", {
-    redirect: false,
-    email: loginData.email,
-    password: loginData.password,
-  });
-
-  if (res?.error) {
-    toast.error("Invalid credentials");
-  } else {
-    toast.success("Signed in successfully");
-    router.push("/"); // أو إلى داشبورد
-  }
-
-  setLoading(false);
 };
 
 
