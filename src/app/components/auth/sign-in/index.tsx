@@ -45,8 +45,29 @@ const Signin = () => {
   };
 
   // form handle submit
-  const handleSubmit = async (e: React.FormEvent) => {
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault(); // ضروري لمنع التصرف الافتراضي
+
+  const isValid = validateForm();
+  if (!isValid) return;
+
+  setLoading(true);
+  const res = await signIn("credentials", {
+    redirect: false,
+    email: loginData.email,
+    password: loginData.password,
+  });
+
+  if (res?.error) {
+    toast.error("Invalid credentials");
+  } else {
+    toast.success("Signed in successfully");
+    router.push("/"); // أو إلى داشبورد
+  }
+
+  setLoading(false);
+};
+
 
 
   return (
@@ -62,7 +83,7 @@ const Signin = () => {
             <Toaster />
           </span>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-[22px]">
               <input
                 required
