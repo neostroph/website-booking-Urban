@@ -1,6 +1,4 @@
 
-"use client";
-
 import { Metadata } from "next";
 import HeroSub from "./components/shared/hero-sub";
 import Link from "next/link";
